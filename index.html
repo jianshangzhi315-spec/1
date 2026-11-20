@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f7f8f6"><meta name="description" content="把一闪而过的灵感，轻轻记下来。聊天式记录、局部色标与一周回顾。">
+<title>拾记 · 把灵感留下来</title><link rel="icon" href="icon.svg"><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="workspace">
+  <aside class="sidebar">
+    <a class="brand" href="#" aria-label="拾记首页"><img src="icon.svg" alt=""><span>拾记<small>给一闪而过的想法，一个位置。</small></span></a>
+    <button class="new-button" data-action="new"><span data-icon="plus"></span>记一笔<span class="shortcut">N</span></button>
+    <nav class="navigation" aria-label="主导航">
+      <button data-view="stream" class="active"><span data-icon="notes"></span>所有记录<span id="totalCount" class="nav-count"></span></button>
+      <button data-view="week"><span data-icon="calendar"></span>一周回顾</button>
+      <button data-view="todos"><span data-icon="check"></span>待办事项<span id="todoCount" class="nav-count"></span></button>
+    </nav>
+    <div class="sidebar-section"><div class="section-label">我的色标<button class="icon-button" data-action="settings" aria-label="管理色标"><span data-icon="sliders"></span></button></div><div id="sidebarColors"></div></div>
+    <div class="sidebar-footer"><button data-action="settings"><span data-icon="sliders"></span>偏好与备份</button><p><span class="status-dot"></span>保存在此浏览器</p></div>
+  </aside>
+  <div class="main-shell">
+    <header class="topbar"><div class="mobile-brand"><img src="icon.svg" alt="">拾记</div><div class="breadcrumb">我的笔记本 <span>/</span> <b id="crumb">所有记录</b></div><div class="header-actions"><button class="icon-button" data-action="search" aria-label="搜索记录"><span data-icon="search"></span></button><button class="icon-button" data-action="settings" aria-label="设置"><span data-icon="sliders"></span></button></div></header>
+    <div class="content-layout">
+      <main class="main-content">
+        <div class="page-heading"><div><h1 id="pageTitle">把灵感留下来</h1><p id="pageSubtitle">不必整理好，想到就记。</p></div><span class="heading-sketch" aria-hidden="true"><svg viewBox="0 0 70 70"><path d="M15 51c7-19 28-40 37-36 7 4-6 22-27 28m-7 9 4-13m-4 13 13-4M40 53l3 6m7-13 7 2M17 18l-5-3"/></svg></span></div>
+        <div class="demo-banner" id="demoBanner"><span>先用几条示例，试试手感。</span><button data-action="clear-demo">清除示例</button></div>
+        <div class="search-field hidden" id="searchBox"><span data-icon="search"></span><input id="search" type="search" placeholder="找一个词、日期或想法…" aria-label="搜索记录"><button class="icon-button" data-action="close-search" aria-label="关闭搜索"><span data-icon="close"></span></button></div>
+        <div class="view-tools"><div id="filterBar" class="filter-bar"></div><select id="colorSelect" aria-label="按色标筛选"></select><span id="resultCount"></span></div>
+        <div id="weekTools" class="week-tools hidden"><button class="icon-button" data-action="prev-week" aria-label="上一周"><span data-icon="left"></span></button><button id="weekLabel" data-action="this-week"></button><button class="icon-button" data-action="next-week" aria-label="下一周"><span data-icon="right"></span></button><button class="subtle-button export-button" data-action="export-week"><span data-icon="download"></span>存为长图</button></div>
+        <div id="feed" class="feed"></div>
+        <div class="feed-end" id="feedEnd">想到的，都值得留下。</div>
+      </main>
+      <aside class="right-rail">
+        <section class="mini-calendar"><div class="rail-heading"><h2 id="monthLabel"></h2><div><button class="icon-button" data-action="prev-month" aria-label="上一月"><span data-icon="left"></span></button><button class="icon-button" data-action="next-month" aria-label="下一月"><span data-icon="right"></span></button></div></div><div class="weekdays"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div><div id="calendarGrid" class="calendar-grid"></div><button class="calendar-link" data-view="week">展开这一周 <span data-icon="calendar"></span></button></section>
+        <section class="rail-week"><div class="rail-heading"><h2>这周的小积累</h2><span id="weekRange"></span></div><div class="week-numbers"><div><b id="weekNoteCount">0</b><span>条想法</span></div><div><b id="weekDayCount">0</b><span>天有记录</span></div></div><div id="weekActivity" class="week-activity"></div></section>
+        <section class="quiet-tip"><span data-icon="pen"></span><h2>先写下来，再慢慢整理。</h2><p>选中一小段文字，就能标色或设为待办。灵感不用一开始就井井有条。</p></section>
+      </aside>
+    </div>
+    <div class="composer-dock" id="composerDock"><form class="composer" id="composerForm"><label class="sr-only" for="draft">记下一个想法</label><textarea id="draft" rows="2" placeholder="刚刚想到…" maxlength="20000"></textarea><div class="composer-bottom"><button type="button" class="composer-todo" id="draftTodo" aria-pressed="false"><span data-icon="square"></span>记为待办</button><span class="draft-status" id="draftStatus">随手写，不用起标题</span><button type="submit" class="send-button" id="sendButton" disabled>记下来<span data-icon="plus"></span></button></div></form><div class="composer-footnote"><span>每次发送是一条记录 · 长按记录可编辑</span><span class="desktop-hint">Ctrl + Enter 保存</span></div></div>
+  </div>
+</div>
+<nav class="mobile-nav" aria-label="手机导航"><button data-view="stream" class="active"><span data-icon="notes"></span>记录</button><button data-view="week"><span data-icon="calendar"></span>回顾</button><button data-view="todos"><span data-icon="check"></span>待办</button></nav>
+<div id="selectionBar" class="selection-bar hidden" role="toolbar" aria-label="选中文字操作"><span id="selectionColors"></span><button data-action="selection-todo"><span data-icon="check"></span>待办</button><button data-action="selection-clear" aria-label="清除选中文字色标"><span data-icon="erase"></span></button><button data-action="selection-close" aria-label="关闭文字操作"><span data-icon="close"></span></button></div>
+<dialog id="editDialog"><div class="dialog-head"><div><h2>整理这一条</h2><p>选中文字可局部标色；未选中时标记整条。</p></div><button class="icon-button" data-close="editDialog" aria-label="关闭编辑"><span data-icon="close"></span></button></div><label class="sr-only" for="editText">编辑记录</label><textarea id="editText" rows="7"></textarea><div class="editor-selection" id="editorSelection">未选择文字 · 操作整条记录</div><div class="editor-palette" id="editorPalette"></div><div class="editor-actions"><button class="subtle-button" id="editTodo"><span data-icon="check"></span>设为待办</button><button class="subtle-button" id="editClear"><span data-icon="erase"></span>清除色标</button></div><div id="editPreview" class="edit-preview"></div><div class="dialog-footer"><button class="danger-button" id="deleteNote">删除这条</button><button class="primary-button" id="saveNote">保存修改</button></div></dialog>
+<dialog id="settingsDialog"><div class="dialog-head"><div><h2>让颜色跟随你的习惯</h2><p>只做一点标记，不打扰文字。</p></div><button class="icon-button" data-close="settingsDialog" aria-label="关闭设置"><span data-icon="close"></span></button></div><div id="colorSettings"></div><button class="subtle-button" id="addColor"><span data-icon="plus"></span>添加色标</button><div class="settings-backup"><h3>你的记录，留在你手里</h3><p>此原型只保存在当前浏览器，不会跨设备同步。可导出备份，之后再导入。</p><div><button class="subtle-button" id="backupExport"><span data-icon="download"></span>导出备份</button><button class="subtle-button" id="backupImport"><span data-icon="upload"></span>导入备份</button><input type="file" id="importFile" accept="application/json,.json" hidden></div></div><div class="dialog-footer"><span></span><button class="primary-button" id="saveSettings">保存设置</button></div></dialog>
+<dialog id="imageDialog"><div class="dialog-head"><div><h2>一周，收进一张图</h2><p>完整内容与色标都会保留。</p></div><button class="icon-button" data-close="imageDialog" aria-label="关闭图片预览"><span data-icon="close"></span></button></div><div id="imagePreview"></div><div class="dialog-footer"><span id="exportInfo"></span><button class="primary-button" id="downloadImage">下载图片</button></div></dialog>
+<div id="toast" class="toast hidden" role="status"></div>
+<script type="module" src="app.js"></script>
+</body></html>
